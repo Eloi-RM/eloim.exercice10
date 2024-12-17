@@ -1,6 +1,6 @@
 function tryWord(word, base) {
     // TODO: fix jeu sensible à la casse.
-    if (word === base) {
+    if (checkWin(word, base)) {
         return true
     } else {
         let wellPlaced = [];
@@ -28,9 +28,15 @@ function tryWord(word, base) {
     }
 }
 
+function checkWin(word, base) {
+    if (word === base) {
+        return true
+    }
+}
+
 function guess() {
     displayOrNot(true)
-    let base = 'dictionnaire'
+    let base = 'dictionnaire    '
     let word = document.getElementById("word").value
     let result = tryWord(word, base)
     if (result == true) {
@@ -39,7 +45,6 @@ function guess() {
         display(word, result)
     }
 }
-
 
 function display(word, result) {
     displayOrNot(false)
