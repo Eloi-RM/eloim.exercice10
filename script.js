@@ -3,29 +3,46 @@ function tryWord(word, base) {
     if (checkWin(word, base)) {
         return true
     } else {
-        let wellPlaced = [];
-        let notInWord = [];
-        let missplaced = [];
-
         let arrayBase = base.split('');
         let arrayWord = word.split('');
+        
+        let wellPlaced = isWellPlaced(arrayWord, arrayBase)
+        let notInWord = isNotInWord(arrayWord, arrayBase)
+        let missPlaced = isMissPlaced(arrayWord, arrayBase)
 
-        for (const char of arrayWord) {
-            if (arrayBase.includes(char) == false) {
-                notInWord.push(char)
-            }
-        }
-
-        for (let i = 0; i < arrayBase.length; i++) {
-            if (arrayBase[i] === arrayWord[i]) {
-                wellPlaced.push(arrayWord[i]);
-            } else if (arrayBase.includes(arrayWord[i])) {
-                missplaced.push(arrayWord[i])
-            }
-        }
-
-        return { wellPlaced: wellPlaced, missplaced: missplaced, notInWord: notInWord }
+        return { wellPlaced: wellPlaced, missPlaced: missPlaced, notInWord: notInWord }
     }
+}
+
+function isWellPlaced(arrayWord, arrayBase) {
+    const myArray = []
+    for (let i = 0; i < arrayBase.length; i++) {
+        if (arrayBase[i] === arrayWord[i]) {
+            myArray.push(arrayWord[i]);
+        }
+    }
+    return myArray
+}
+
+
+function isNotInWord(arrayWord, arrayBase) {
+    const myArray = []
+    for (const char of arrayWord) {
+        if (arrayBase.includes(char) == false) {
+            myArray.push(char)
+        }
+    }
+    return myArray
+}
+
+function isMissPlaced(arrayWord, arrayBase) {
+    const myArray = []
+    for (let i = 0; i < arrayBase.length; i++) {
+        if (arrayBase.includes(arrayWord[i]) && arrayBase[i] != arrayWord[i]) {
+            myArray.push(arrayWord[i])
+        }
+    }
+    return myArray
 }
 
 function checkWin(word, base) {
@@ -36,7 +53,7 @@ function checkWin(word, base) {
 
 function guess() {
     displayOrNot(true)
-    let base = 'dictionnaire    '
+    let base = 'dictionnaire'
     let word = document.getElementById("word").value
     let result = tryWord(word, base)
     if (result == true) {
@@ -51,7 +68,7 @@ function display(word, result) {
     document.getElementById("word").value = ''
     document.getElementById("try").innerText = word
     document.getElementById("well").innerText = 'Bien placé: ' + result.wellPlaced.join(', ')
-    document.getElementById("miss").innerText = 'Mal placé: ' + result.missplaced.join(', ')
+    document.getElementById("miss").innerText = 'Mal placé: ' + result.missPlaced.join(', ')
     document.getElementById("not").innerText = 'Pas dans le mot: ' + result.notInWord.join(', ')
 }
 
