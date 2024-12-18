@@ -1,3 +1,5 @@
+const base = "mime"
+
 function tryWord(word, base) {
     // TODO: fix jeu sensible à la casse.
     if (checkWin(word, base)) {
@@ -10,7 +12,7 @@ function tryWord(word, base) {
         let notInWord = isNotInWord(arrayWord, arrayBase)
         let missPlaced = isMissPlaced(arrayWord, arrayBase)
 
-        return { wellPlaced: wellPlaced, missPlaced: missPlaced, notInWord: notInWord }
+        return { wellPlaced : wellPlaced, missPlaced : missPlaced, notInWord : notInWord }
     }
 }
 
@@ -23,7 +25,6 @@ function isWellPlaced(arrayWord, arrayBase) {
     }
     return myArray
 }
-
 
 function isNotInWord(arrayWord, arrayBase) {
     const myArray = []
@@ -51,9 +52,8 @@ function checkWin(word, base) {
     }
 }
 
-function guess() {
+function playMotus() {
     displayOrNot(true)
-    let base = 'dictionnaire'
     let word = document.getElementById("word").value
     let result = tryWord(word, base)
     if (result == true) {
@@ -61,6 +61,12 @@ function guess() {
     } else {
         display(word, result)
     }
+}
+
+function setUpGame() {
+    myArray = base.split("")
+    document.querySelector(".hint-numbers").innerText = `Number of letters : ${myArray.length}`
+    document.querySelector(".hint-first-letter").innerText = "First letter : " + myArray[0]
 }
 
 function display(word, result) {
@@ -79,3 +85,5 @@ function displayOrNot(hide) {
         document.querySelector(".myDiv").style.display = "block"
     }
 }
+
+setUpGame()
