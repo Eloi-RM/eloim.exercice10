@@ -1,4 +1,4 @@
-const base = "mime"
+const base = "dictionnaire"
 
 function tryWord(word, base) {
     // TODO: fix jeu sensible à la casse.
@@ -10,9 +10,9 @@ function tryWord(word, base) {
         
         let wellPlaced = isWellPlaced(arrayWord, arrayBase)
         let notInWord = isNotInWord(arrayWord, arrayBase)
-        let missPlaced = isMissPlaced(arrayWord, arrayBase)
+        let missplaced = isMissplaced(arrayWord, arrayBase)
 
-        return { wellPlaced : wellPlaced, missPlaced : missPlaced, notInWord : notInWord }
+        return { wellPlaced : wellPlaced, missplaced : missplaced, notInWord : notInWord }
     }
 }
 
@@ -36,7 +36,7 @@ function isNotInWord(arrayWord, arrayBase) {
     return myArray
 }
 
-function isMissPlaced(arrayWord, arrayBase) {
+function isMissplaced(arrayWord, arrayBase) {
     const myArray = []
     for (let i = 0; i < arrayBase.length; i++) {
         if (arrayBase.includes(arrayWord[i]) && arrayBase[i] != arrayWord[i]) {
@@ -57,7 +57,7 @@ function playMotus() {
     let word = document.getElementById("word").value
     let result = tryWord(word, base)
     if (result == true) {
-        document.getElementById("win").innerText = 'Vous avez gagné'
+        document.getElementById("win").innerText = 'You win'
     } else {
         display(word, result)
     }
@@ -73,9 +73,9 @@ function display(word, result) {
     displayOrNot(false)
     document.getElementById("word").value = ''
     document.getElementById("try").innerText = word
-    document.getElementById("well").innerText = 'Bien placé: ' + result.wellPlaced.join(', ')
-    document.getElementById("miss").innerText = 'Mal placé: ' + result.missPlaced.join(', ')
-    document.getElementById("not").innerText = 'Pas dans le mot: ' + result.notInWord.join(', ')
+    document.getElementById("well").innerText = 'Well placed: ' + result.wellPlaced.join(', ')
+    document.getElementById("miss").innerText = 'Missplaced: ' + result.missplaced.join(', ')
+    document.getElementById("not").innerText = 'Not in the word: ' + result.notInWord.join(', ')
 }
 
 function displayOrNot(hide) {
